@@ -37,3 +37,5 @@ aws s3 cp  dags/emr_step_job.py s3://analytics-airflow-01/dags/
 ```
 mwaa web ui上执行，查看作业即可
 ```
+![emr-step-dag](https://pcmyp.oss-accelerate.aliyuncs.com/markdown/20220912013407.png)
+![emr-step-job](https://pcmyp.oss-accelerate.aliyuncs.com/markdown/20220912013222.png)
