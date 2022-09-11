@@ -1,0 +1,40 @@
+[
+  {
+    "Name": "elt-job-1",
+    "ActionOnFailure": "CONTINUE",
+    "HadoopJarStep": {
+      "Jar": "command-runner.jar",
+      "Args": [
+        "spark-submit",
+        "--deploy-mode",
+        "client",
+        "--master",
+        "yarn",
+        "--conf",
+        "spark.yarn.submit.waitAppCompletion=true",
+        "s3://{{ var.value.work_bucket }}/scripts/spark-etl.py",
+        "s3://{{ var.value.work_bucket }}/input/",
+        "s3://{{ var.value.work_bucket }}/output1/"
+      ]
+    }
+  },
+  {
+    "Name": "elt-job-2",
+    "ActionOnFailure": "CONTINUE",
+    "HadoopJarStep": {
+      "Jar": "command-runner.jar",
+      "Args": [
+        "spark-submit",
+        "--deploy-mode",
+        "client",
+        "--master",
+        "yarn",
+        "--conf",
+        "spark.yarn.submit.waitAppCompletion=true",
+        "s3://{{ var.value.work_bucket }}/scripts/spark-etl.py",
+        "s3://{{ var.value.work_bucket }}/input/",
+        "s3://{{ var.value.work_bucket }}/output2/"
+      ]
+    }
+  }
+]

@@ -1,0 +1,5 @@
+{
+    "airflow_email": "chaopan@amazon.com",
+    "email_on_failure": false,
+    "email_on_retry": false
+}

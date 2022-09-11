@@ -1,0 +1,92 @@
+{
+  "Name": "emr-demo-cluster-airflow",
+  "ReleaseLabel": "{{ var.value.release_label }}",
+  "LogUri": "{{ var.value.logs_bucket }}",
+  "ManagedScalingPolicy": {
+      "ComputeLimits": {
+         "MaximumCapacityUnits": 10,
+         "MaximumCoreCapacityUnits": 1,
+         "MaximumOnDemandCapacityUnits": 1,
+         "MinimumCapacityUnits": 2,
+         "UnitType": "InstanceFleetUnits"
+      }
+   },
+  "Applications": [
+    {
+      "Name": "Spark"
+    }
+  ],
+  "Instances": {
+    "InstanceFleets": [
+      {
+        "Name": "MASTER",
+        "InstanceFleetType": "MASTER",
+        "TargetOnDemandCapacity": 1,
+        "InstanceTypeConfigs": [
+          {
+            "InstanceType": "m5.xlarge"
+          }
+        ]
+      },
+      {
+        "Name": "CORE",
+        "InstanceFleetType": "CORE",
+        "TargetOnDemandCapacity": 1,
+        "InstanceTypeConfigs": [
+          {
+            "InstanceType": "r5.xlarge"
+          }
+        ]
+      },
+      {
+        "Name": "TASK",
+        "InstanceFleetType": "TASK",
+        "TargetSpotCapacity": 1,
+        "InstanceTypeConfigs": [
+          {
+            "InstanceType": "r5.xlarge"
+          }
+        ]
+      }
+    ],
+    "Ec2SubnetId": "{{ var.value.ec2_subnet_id }}",
+    "KeepJobFlowAliveWhenNoSteps": false,
+    "TerminationProtected": false,
+    "Ec2KeyName": "{{ var.value.emr_ec2_key_pair }}"
+  },
+  "BootstrapActions": [
+    {
+      "Name": "string",
+      "ScriptBootstrapAction": {
+        "Path": "{{ var.value.bootstrap_bucket }}"
+      }
+    }
+  ],
+  "Configurations": [
+    {
+      "Classification": "spark-hive-site",
+      "Properties": {
+        "hive.metastore.client.factory.class": "com.amazonaws.glue.catalog.metastore.AWSGlueDataCatalogHiveClientFactory"
+      }
+    }
+  ],
+  "VisibleToAllUsers": true,
+  "JobFlowRole": "{{ var.value.job_flow_role }}",
+  "ServiceRole": "{{ var.value.service_role }}",
+  "EbsRootVolumeSize": 32,
+  "StepConcurrencyLevel": 5,
+  "Tags": [
+    {
+      "Key": "Environment",
+      "Value": "Development"
+    },
+    {
+      "Key": "Name",
+      "Value": "Airflow EMR Demo Project"
+    },
+    {
+      "Key": "Owner",
+      "Value": "Data Analytics Team"
+    }
+  ]
+}

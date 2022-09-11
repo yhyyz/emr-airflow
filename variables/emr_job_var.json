@@ -1,0 +1,10 @@
+{
+    "bootstrap_bucket": "s3://xxxx/emr_steps/emr_bootstrap.sh",
+    "emr_ec2_key_pair": "emr-02",
+    "job_flow_role": "EMR_EC2_DefaultRole",
+    "logs_bucket": "s3://xxxx/logs/",
+    "release_label": "emr-6.6.0",
+    "service_role": "EMR_DefaultRole",
+    "work_bucket": "xxxx",
+    "ec2_subnet_id": "subnet-0f79e4471cfa74ced"
+}
